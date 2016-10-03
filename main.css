@@ -1,0 +1,51 @@
+h3 {
+	font-family: 'VT323', monospace;
+}
+
+h1 {
+	font-family: 'Press Start 2P', cursive;
+}
+
+button {
+	border-radius: 5px;
+	font-family: 'Signika', sans-serif;
+}
+
+button.answer {
+	border-radius: 5px;
+	font-family: 'Signika', sans-serif;
+	margin-top: 15px;
+}
+
+.container {
+	max-width: 700px;
+	margin: 50px auto;
+	text-align: center;
+}
+
+.status {
+	text-align: right;
+	margin: 10px;
+}
+
+.box {
+	position: relative;
+	border: 2px solid grey;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+	font-family: 'Signika', sans-serif;
+	border-radius: 15px;
+
+}
+
+.score-text {
+	display: inline-block;
+	float: left;
+	text-align: left;
+	margin: 10px;
+}
+
+.text-box {
+	margin: auto 10px auto 10px;
+}
