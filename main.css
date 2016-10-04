@@ -1,13 +1,15 @@
+body {
+	background: url('rams.jpg');
+    background-repeat: repeat-y;
+}
+
 h3 {
 	font-family: 'VT323', monospace;
 }
 
-h1 {
-	font-family: 'Press Start 2P', cursive;
-}
-
 p {
 	margin-bottom: 0px;
+	font-size: 17px;
 }
 
 button {
@@ -58,13 +60,21 @@ button.answer {
 
 .box {
 	position: relative;
-	border: 2px solid black;
-	padding-left: 10px;
-	padding-right: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
 	padding-bottom: 10px;
-	font-family: 'Signika', sans-serif;
-	border-radius: 15px;
-
+	font-family: 'Signika', sans-serif;;
+    -webkit-border-radius: 10px 10px 10px 10px;
+	border: 10px ridge #6696CF;
+	/*gradient*/
+	background: rgba(255,255,255,1);
+	background: -moz-linear-gradient(-45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(193,212,235,1) 51%, rgba(255,255,255,1) 98%, rgba(255,255,255,1) 100%);
+	background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(0%, rgba(255,255,255,1)), color-stop(51%, rgba(193,212,235,1)), color-stop(98%, rgba(255,255,255,1)), color-stop(100%, rgba(255,255,255,1)));
+	background: -webkit-linear-gradient(-45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(193,212,235,1) 51%, rgba(255,255,255,1) 98%, rgba(255,255,255,1) 100%);
+	background: -o-linear-gradient(-45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(193,212,235,1) 51%, rgba(255,255,255,1) 98%, rgba(255,255,255,1) 100%);
+	background: -ms-linear-gradient(-45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(193,212,235,1) 51%, rgba(255,255,255,1) 98%, rgba(255,255,255,1) 100%);
+	background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgba(193,212,235,1) 51%, rgba(255,255,255,1) 98%, rgba(255,255,255,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff', GradientType=1 );
 }
 
 .score-text {
@@ -81,4 +91,8 @@ button.answer {
 
 .main-page, .question-page, .result-page, .end-page {
 	margin-top: 40px;
+}
+
+.welcome {
+	font-size: 30px;
 }

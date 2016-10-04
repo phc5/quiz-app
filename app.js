@@ -3,54 +3,54 @@
 const state = {
 	questions: [
 		{
-			text: "Which US president is depicted on the Purple Heart medal?",
-			answers: ['Abraham Lincoln', 'Theodore Roosevelt', 'George Washington', 'Benjamin Franklin'],
-			correctAnswer: 'George Washington'
+			text: "Who has the most wins as a head coach in the NFL?",
+			answers: ['George Halas', 'Curly Lambeau', 'Tom Landry', 'Don Shula'],
+			correctAnswer: 'Don Shula',
 		}, 
 		{
-			text: "Myosis affects which part of the human body?",
-			answers: ['Neck', 'Stomach', 'Mouth', 'Eye'],
-			correctAnswer: 'Eye'
+			text: "Which NFL team features a helmet decal only on one side of the helmet?",
+			answers: ['Houston Texans', 'Jacksonville Jaguars', 'Pittsburgh Steelers', 'Tennessee Titans'],
+			correctAnswer: 'Pittsburgh Steelers',
 		},
 		{
-			text: "The drink Tequila is made from...",
-			answers: ['Sugar Cane', 'Blue Agave', 'Aloe Vera', 'Cactus'],
-			correctAnswer: 'Blue Agave'
+			text: "Who is the last non-quarterback to win NFL MVP?",
+			answers: ['Shaun Alexander', 'Ray Lewis', 'Adrian Peterson', 'LaDainian Tomlinson'],
+			correctAnswer: 'Adrian Peterson'
 		},
 		{
-			text: "Who was the #1 overall draft pick in the 2016 NBA Draft?",
-			answers: ['Ben Simmons', 'Brandon Ingram', 'Jaylen Brown', 'Kris Dunn'],
-			correctAnswer: 'Ben Simmons'
+			text: "This current NFL quarterback, a 2010 Pro Bowler, never started a game at QB in college...",
+			answers: ['Matt Schaub', 'Matt Cassel', 'Matt Moore', 'Matt Flynn'],
+			correctAnswer: 'Matt Cassel'
 		},
 		{
-			text: "Wikipedia's spherical logo features what Greek symbol?",
-			answers: ["Omega", "Theta", "Sigma", "Gamma"],
-			correctAnswer: 'Omega'
+			text: "How many Heisman Trophy winners have gone on to be MVP of the Super Bowl?",
+			answers: ["2", "3", "4", "5"],
+			correctAnswer: '4'
 		},
 		{
-			text: "The term 'GUI' stands for...?",
-			answers: ["Graphical User Interface", "Graphics Unused Input", "Graphing Ultimate Interface", "Graphical Ultimate Interface"],
-			correctAnswer: 'Graphical User Interface'
+			text: "4 of the first 5 picks in the 1989 draft -- Troy Aikman, Barry Sanders, Derrick Thomas and Deion Sanders -- are in the Hall of Fame. Who was the bust?",
+			answers: ["Aundray Bruce", "Blair Thomas", "Keith McCants", "Tony Mandarich"],
+			correctAnswer: 'Tony Mandarich'
 		},
 		{
-			text: "A deficiency in what vitamin will cause scurvy?",
-			answers: ["Vitamin A", "Vitamin B", "Vitamin C", "Vitamin D"],
-			correctAnswer: 'Vitamin C'
+			text: "Which of these teams was NOT an original NFL team that moved over to the AFC?",
+			answers: ["Browns", "Colts", "Raiders", "Steelers"],
+			correctAnswer: 'Raiders'
 		},
 		{
-			text: "Basilosaurus a beast that lived before us but after the dinosaurs, evolved into which current day animal?",
-			answers: ["Camel", "Elephant", "Whale", "Giraffe"],
-			correctAnswer: 'Whale'
+			text: "This state has produced more pro football Hall of Famers than any other state...",
+			answers: ["California", "Ohio", "Pennsylvania", "Texas"],
+			correctAnswer: 'Pennsylvania'
 		},
 		{
-			text: "What is the name given to a substance that remains unchanged but which causes or accelerates a chemical reaction? What is the name given to a substance that remains unchanged but which causes or accelerates a chemical reaction?",
-			answers: ["Homeostasis", "Homogenous", "Catalyst", "Heterogenous"],
-			correctAnswer: 'Catalyst'
+			text: "Who is the only Super Bowl MVP to have played on the losing team?",
+			answers: ["Larry Fitzgerald", "Chuck Howley", "Dan Marino", "Steve McNair"],
+			correctAnswer: 'Chuck Howley'
 		},
 		{
-			text: "Which planet has the largest volcano and largest valley in the solar system?",
-			answers: ["Mars", "Earth", "Venus", "Jupiter"],
-			correctAnswer: 'Mars'
+			text: "This is the only team not to make the NFL playoffs this millennium...",
+			answers: ["Buffalo Bills", "Cleveland Browns", "Jacksonville Jaguars", "Oakland Raiders"],
+			correctAnswer: 'Buffalo Bills'
 		}
 	],
 	score: 0,
@@ -59,7 +59,6 @@ const state = {
 	incorrectText: "Incorrect...",
 	whichPage: 'start',
 	answerFlag: true,
-	time: 0
 }
 
 // modify
@@ -71,9 +70,9 @@ function setPage(state, page) {
 function shuffle(array) {
 	for (let i = array.length; i; i--) {
 		let randIndex = Math.floor(Math.random() * i);
-		let swapHolder = array[i - 1];
+		let temp = array[i - 1];
 		array[i - 1] = array[randIndex];
-		array[randIndex] = swapHolder;
+		array[randIndex] = temp;
 	}
 }
 
@@ -81,6 +80,24 @@ function flagAnswer(state, answer) {
 	state.answerFlag = state.questions[state.currentQuestion].correctAnswer === answer;
 	return state.answerFlag;
 }
+
+// function startTimer(duration, display, flag) {
+// 	let timer = duration, minutes, seconds;
+
+// 	setInterval(function() {
+// 	minutes = parseInt(timer / 60, 10);
+// 	seconds = parseInt(timer % 60, 10);
+
+// 	minutes = minutes < 10 ? "0" + minutes : minutes;
+// 	seconds = seconds < 10 ? "0" + seconds : seconds;
+
+// 	display.text(minutes + ":" + seconds);
+	
+// 	if(--timer <= 0) {
+// 		timer = duration;
+// 	}
+// 	}, 1000);
+// }
 
 // render
 const renderQuiz = function(state, pages) {
@@ -169,7 +186,6 @@ const quizPages = {
 	'end': $('.end-page')
 }
 
-
 $('.start').click(function(event) {
 	event.preventDefault();
 	setPage(state, 'question');
@@ -208,3 +224,8 @@ $('.restart').click(function(event) {
 	setPage(state,'start');
 	renderQuiz(state, quizPages);
 });
+
+$(document).ready(function() {
+	$('.box').animate({top:'50px'}, "slow");
+	$('.box').fadeIn("slow");
+})

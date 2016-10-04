@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Quiz App</title>
+	<title>NFL Quiz</title>
 	<link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Signika" rel="stylesheet">
 	<link rel="stylesheet" href="main.css">
 </head>
 <body>
 	<div class="container">
-		<h1>Quiz App</h1>
-
 		<div class="main-page">
-			<div class="box" id="main-page">
-				<p>Welcome to Quiz App.<br> You will be asked a series of random trivia questions in this
-				quiz. Press start to begin!</p>
+			<div class="box" id="main-page" style="display:none">
+				<p><span class="welcome">Welcome to the NFL Quiz</span><br> You will be asked a series of NFL trivia questions.<br> Press start to begin!</p>
 				<button class="start">Start the Quiz</button>
 			</div>
 		</div>
@@ -22,7 +18,7 @@
 		<div class="question-page" style="display:none;">
 			<div class="box">
 				<h3 class="score-text">Score: <span class="score">0</span></h3>
-				<h3 class="status"><div class="timer"><span class="min">0</span>:<span class="sec">00</span></span></div>Question #<span class="q-num">1</span> out of <span class="q-length"></span></h3>
+				<h3 class="status"><div class="timer"></div>Question #<span class="q-num">1</span> out of <span class="q-length"></span></h3>
 				<div class="text-box"><span class="text-field"></span></div>
 				<div class="choice first">
 					<button class="answer answer-one"></button>
@@ -40,7 +36,7 @@
 		<div class="result-page" style="display: none;">
 			<div class="box">
 				<h3 class="score-text">Score: <span class="score">0</span></h3>
-				<h3 class="status"><div class="timer">0:00</div>Question #<span class="q-num">1</span> out of <span class="q-length"></span></h3>
+				<h3 class="status">Question #<span class="q-num">1</span> out of <span class="q-length"></span></h3>
 				<div class="text-box"><span class="text-field"></span></div>
 				<div class="choice-box">
 					<button class="next-question">Next</button>
@@ -52,7 +48,7 @@
 		<div class="end-page" style="display: none">
 			<div class="box">
 				<h3 class="score-text">Score: <span class="score">0</span></h3>
-				<h3 class="status"><div class="timer">0:00</div>Question #<span class="q-num">1</span> out of <span class="q-length"></span></h3>
+				<h3 class="status">Question #<span class="q-num">1</span> out of <span class="q-length"></span></h3>
 				<div class="text-box"><span class="text-field"></span></div>
 				<div class="choice-box">
 					<button class="restart">Restart</button>
