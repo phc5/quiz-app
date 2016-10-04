@@ -1,30 +1,56 @@
+
 // state 
-var state = {
+const state = {
 	questions: [
 		{
 			text: "Which US president is depicted on the Purple Heart medal?",
 			answers: ['Abraham Lincoln', 'Theodore Roosevelt', 'George Washington', 'Benjamin Franklin'],
-			correctIndex: 2
+			correctAnswer: 'George Washington'
 		}, 
 		{
 			text: "Myosis affects which part of the human body?",
 			answers: ['Neck', 'Stomach', 'Mouth', 'Eye'],
-			correctIndex: 3
+			correctAnswer: 'Eye'
 		},
 		{
 			text: "The drink Tequila is made from...",
 			answers: ['Sugar Cane', 'Blue Agave', 'Aloe Vera', 'Cactus'],
-			correctIndex: 1
+			correctAnswer: 'Blue Agave'
 		},
 		{
 			text: "Who was the #1 overall draft pick in the 2016 NBA Draft?",
 			answers: ['Ben Simmons', 'Brandon Ingram', 'Jaylen Brown', 'Kris Dunn'],
-			correctIndex: 0
+			correctAnswer: 'Ben Simmons'
 		},
 		{
 			text: "Wikipedia's spherical logo features what Greek symbol?",
 			answers: ["Omega", "Theta", "Sigma", "Gamma"],
-			correctIndex: 0
+			correctAnswer: 'Omega'
+		},
+		{
+			text: "The term 'GUI' stands for...?",
+			answers: ["Graphical User Interface", "Graphics Unused Input", "Graphing Ultimate Interface", "Graphical Ultimate Interface"],
+			correctAnswer: 'Graphical User Interface'
+		},
+		{
+			text: "A deficiency in what vitamin will cause scurvy?",
+			answers: ["Vitamin A", "Vitamin B", "Vitamin C", "Vitamin D"],
+			correctAnswer: 'Vitamin C'
+		},
+		{
+			text: "Basilosaurus a beast that lived before us but after the dinosaurs, evolved into which current day animal?",
+			answers: ["Camel", "Elephant", "Whale", "Giraffe"],
+			correctAnswer: 'Whale'
+		},
+		{
+			text: "What is the name given to a substance that remains unchanged but which causes or accelerates a chemical reaction? What is the name given to a substance that remains unchanged but which causes or accelerates a chemical reaction?",
+			answers: ["Homeostasis", "Homogenous", "Catalyst", "Heterogenous"],
+			correctAnswer: 'Catalyst'
+		},
+		{
+			text: "Which planet has the largest volcano and largest valley in the solar system?",
+			answers: ["Mars", "Earth", "Venus", "Jupiter"],
+			correctAnswer: 'Mars'
 		}
 	],
 	score: 0,
@@ -32,7 +58,8 @@ var state = {
 	correctText: "Correct! +1 for you!",
 	incorrectText: "Incorrect...",
 	whichPage: 'start',
-	answerFlag: true
+	answerFlag: true,
+	time: 0
 }
 
 // modify
@@ -42,19 +69,22 @@ function setPage(state, page) {
 
 // Random Int number from http://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array-in-javascript
 function shuffle(array) {
-	var randIndex, swapHolder;
-	for (var i = array.length; i; i--) {
-		randIndex = Math.floor(Math.random() * i);
-		swapHolder = array[i - 1];
+	for (let i = array.length; i; i--) {
+		let randIndex = Math.floor(Math.random() * i);
+		let swapHolder = array[i - 1];
 		array[i - 1] = array[randIndex];
 		array[randIndex] = swapHolder;
 	}
 }
 
-// render
-var renderQuiz = function(state, pages) {
-	//hide all pages and show current page
+function flagAnswer(state, answer) {
+	state.answerFlag = state.questions[state.currentQuestion].correctAnswer === answer;
+	return state.answerFlag;
+}
 
+// render
+const renderQuiz = function(state, pages) {
+	//hide all pages and show current page
 	for (let page of Object.keys(pages)) {
 		pages[page].hide();
 	}
@@ -64,6 +94,7 @@ var renderQuiz = function(state, pages) {
 		//route to render start page
 	} else if (state.whichPage === 'question') {
 		//route to render question page
+		shuffle(state.questions[state.currentQuestion].answers);
 		renderQuestion(state, pages[state.whichPage]);
 	} else if (state.whichPage === 'result') {
 		//route to render results page
@@ -75,73 +106,62 @@ var renderQuiz = function(state, pages) {
 };
 
 	//-----render pages
-var renderQuestion = function(state, element) {
-	renderQText(state, element.find('.text-field'));
-	renderQButtons(state, element.find('.answer'));
+const renderQuestion = function(state, element) {
+	renderQuizText(state, element.find('.text-field'));
+	renderQuizButtons(state, element.find('.answer'));
 }
 
-var renderResults = function(state, element) {
-	renderRText(state, element.find('.text-field'));
+const renderResults = function(state, element) {
+	renderResultsText(state, element.find('.text-field'));
 }
 
-var renderEnd = function (state, element) {
-	renderEText(state, element.find('.text-field'));
+const renderEnd = function (state, element) {
+	renderEndText(state, element.find('.text-field'));
 }
 
 	//-----render content in pages
-var renderQText = function (state, element) {
-	var current = state.questions[state.currentQuestion].text;
+const renderQuizText = function (state, element) {
+	const current = state.questions[state.currentQuestion].text;
 	element.text(current);
 }
 
-var renderQButtons = function (state, element) {
-	var answerOne = state.questions[state.currentQuestion].answers[0];
-	var answerTwo = state.questions[state.currentQuestion].answers[1];
-	var answerThree = state.questions[state.currentQuestion].answers[2];
-	var answerFour = state.questions[state.currentQuestion].answers[3];
-
-	$('button.answer-one').text(answerOne);
-	$('button.answer-two').text(answerTwo);
-	$('button.answer-three').text(answerThree);
-	$('button.answer-four').text(answerFour);
+const renderQuizButtons = function (state, element) {
+	$('button.answer-one').text(state.questions[state.currentQuestion].answers[0]);
+	$('button.answer-two').text(state.questions[state.currentQuestion].answers[1]);
+	$('button.answer-three').text(state.questions[state.currentQuestion].answers[2]);
+	$('button.answer-four').text(state.questions[state.currentQuestion].answers[3]);
 }
 
-var renderQuizStatus = function (state, element) {
-	var status = state.currentQuestion + 1;
-	element.text(status);
+const renderQuizStatus = function (state, element, quizLengthElement) {
+	element.text(state.currentQuestion + 1);
+	quizLengthElement.text(state.questions.length);
 }
 
-var renderAnswer = function(state, answer) {
-	var current = state.questions[state.currentQuestion];
-	state.answerFlag = current.answers[current.correctIndex] === answer;
-	return state.answerFlag
-}
-
-var renderRText = function (state, element) {
-	var current = state.questions[state.currentQuestion];
+const renderResultsText = function (state, element) {
 	if (state.answerFlag) {
 		state.score++;
 		$('.score').text(state.score);
-		element.text(state.correctText + " " + current.answers[current.correctIndex] + " was the correct answer!");
+		element.text(state.correctText + " " + state.questions[state.currentQuestion].correctAnswer + " was the correct answer!");
 	} else {
 		$('.score').text(state.score);
-		element.text(state.incorrectText + " " + current.answers[current.correctIndex] + " was the correct answer!");
+		element.text(state.incorrectText + " " + state.questions[state.currentQuestion].correctAnswer + " was the correct answer!");
 	}
 }
 
-var renderEText = function(state, element) {
-	if (state.score < 3) {
-		element.text('Your score is ' + state.score + ' out of ' + state.questions.length + '. You didn\'t do well. There is room for improvement.');
-	} else if (state.score > 2 && state.score < 5) {
-		element.text('Your score is ' + state.score + " out of " + state.questions.length + ". You did great but can improve!");
-	} else if (state.score === 5) {
-		element.text('Your score is ' + state.score + " out of " + state.questions.length +". You got all of them right!");
+const renderEndText = function(state, element) {
+	const percentCorrect = state.score / state.questions.length;
+	if (percentCorrect < .70) {
+		element.text('Your score is ' + state.score + ' out of ' + state.questions.length + ", which is " + Math.floor(percentCorrect * 100) + "%. You didn\'t do too well. You can always improve!");
+	} else if (percentCorrect >=.70  && percentCorrect < .85) {
+		element.text('Your score is ' + state.score + " out of " + state.questions.length + ", which is " + Math.floor(percentCorrect * 100) + "%. You did great!");
+	} else if (percentCorrect >= .85) {
+		element.text('Your score is ' + state.score + " out of " + state.questions.length +", which is " + Math.floor(percentCorrect * 100) + "%. You did awesome!");
 	}
 }
 
 
 // event listener
-var quizPages = {
+const quizPages = {
 	// set to jQuery variables for .hide() and .show()
 	'start': $('.main-page'),
 	'question': $('.question-page'),
@@ -153,6 +173,7 @@ var quizPages = {
 $('.start').click(function(event) {
 	event.preventDefault();
 	setPage(state, 'question');
+	renderQuizStatus(state, $('.q-num'), $('.q-length'));
 	renderQuiz(state, quizPages);
 });
 
@@ -160,16 +181,16 @@ $('.answer').click(function(event) {
 	event.preventDefault();
 	setPage(state, 'result');
 	var answer = $(this).text();
-	renderAnswer(state, answer);
+	flagAnswer(state, answer);
 	renderQuiz(state, quizPages);
 });
 
 $('.next-question').click(function(event) {
 	event.preventDefault();
 	state.currentQuestion++;
-	if (state.currentQuestion <= 4) {
+	if (state.currentQuestion < state.questions.length) {
 		setPage(state, 'question');
-		renderQuizStatus(state, $('.q-num'));
+		renderQuizStatus(state, $('.q-num'), $('.q-length'));
 		renderQuiz(state, quizPages);
 	} else {
 		setPage(state, 'end');
@@ -180,8 +201,8 @@ $('.next-question').click(function(event) {
 $('.restart').click(function(event) {
 	event.preventDefault();
 	state.score = 0;
-	$('.score').text(state.score);
 	state.currentQuestion = 0;
+	$('.score').text(state.score);
 	$('.q-num').text(state.currentQuestion+1);
 	shuffle(state.questions);
 	setPage(state,'start');
